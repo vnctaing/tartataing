@@ -16,6 +16,7 @@
                  [funcool/struct "1.4.0"]
                  [luminus-transit "0.1.2"]
                  [luminus/ring-ttl-session "0.3.3"]
+                 [luminus-jetty "0.2.0"]
                  [markdown-clj "1.10.5"]
                  [metosin/jsonista "0.2.6"]
                  [metosin/muuntaja "0.6.7"]
@@ -52,9 +53,9 @@
             [lein-uberwar "0.2.1"]] 
   :uberwar
   {:handler tartataing.handler/app
-   :init tartataing.handler/init
+   :init    tartataing.handler/init
    :destroy tartataing.handler/destroy
-   :name "tartataing.war"}
+   :name    "tartataing.war"}
   
   :clean-targets ^{:protect false}
   [:target-path "target/cljsbuild"]
@@ -62,54 +63,53 @@
   {:nrepl {:port 7002}
    :builds
    {:app
-    {:target :browser
+    {:target     :browser
      :output-dir "target/cljsbuild/public/js"
      :asset-path "/js"
-     :modules {:app {:entries [tartataing.app]}}
-     :devtools {:watch-dir "resources/public"}}
+     :modules    {:app {:entries [tartataing.app]}}
+     :devtools   {:watch-dir "resources/public"}}
     :test
-    {:target :node-test
+    {:target    :node-test
      :output-to "target/test/test.js"
-     :autorun true}}}
+     :autorun   true}}}
   
   :npm-deps []
   :npm-dev-deps [[xmlhttprequest "1.8.0"]]
 
   :profiles
   {:uberjar {:omit-source true
-             :prep-tasks ["compile" ["shadow" "release" "app"]]
+             :prep-tasks  ["compile" ["shadow" "release" "app"]]
              
-             :aot :all
-             :uberjar-name "tartataing.jar"
-             :source-paths ["env/prod/clj"  "env/prod/cljs" ]
+             :aot            :all
+             :uberjar-name   "tartataing.jar"
+             :source-paths   ["env/prod/clj"  "env/prod/cljs" ]
              :resource-paths ["env/prod/resources"]}
 
-   :dev           [:project/dev :profiles/dev]
-   :test          [:project/dev :project/test :profiles/test]
+   :dev  [:project/dev :profiles/dev]
+   :test [:project/dev :project/test :profiles/test]
 
-   :project/dev  {:jvm-opts ["-Dconf=dev-config.edn" ]
-                  :dependencies [[binaryage/devtools "1.0.2"]
-                                 [cider/piggieback "0.5.0"]
-                                 [directory-naming/naming-java "0.8"]
-                                 [luminus-jetty "0.2.0"]
-                                 [pjstadig/humane-test-output "0.10.0"]
-                                 [prone "2020-01-17"]
-                                 [ring/ring-devel "1.8.1"]
-                                 [ring/ring-mock "0.4.0"]]
-                  :plugins      [[com.jakemccrary/lein-test-refresh "0.24.1"]
-                                 [jonase/eastwood "0.3.5"]] 
-                  
-                  
-                  :source-paths ["env/dev/clj"  "env/dev/cljs" "test/cljs" ]
-                  :resource-paths ["env/dev/resources"]
-                  :repl-options {:init-ns user
-                                 :timeout 120000}
-                  :injections [(require 'pjstadig.humane-test-output)
-                               (pjstadig.humane-test-output/activate!)]}
-   :project/test {:jvm-opts ["-Dconf=test-config.edn" ]
+   :project/dev {:jvm-opts     ["-Dconf=dev-config.edn" ]
+                 :dependencies [[binaryage/devtools "1.0.2"]
+                                [cider/piggieback "0.5.0"]
+                                [directory-naming/naming-java "0.8"]
+                                [pjstadig/humane-test-output "0.10.0"]
+                                [prone "2020-01-17"]
+                                [ring/ring-devel "1.8.1"]
+                                [ring/ring-mock "0.4.0"]]
+                 :plugins      [[com.jakemccrary/lein-test-refresh "0.24.1"]
+                                [jonase/eastwood "0.3.5"]] 
+                 
+                 
+                 :source-paths   ["env/dev/clj"  "env/dev/cljs" "test/cljs" ]
+                 :resource-paths ["env/dev/resources"]
+                 :repl-options   {:init-ns user
+                                  :timeout 120000}
+                 :injections     [(require 'pjstadig.humane-test-output)
+                                  (pjstadig.humane-test-output/activate!)]}
+   :project/test {:jvm-opts       ["-Dconf=test-config.edn" ]
                   :resource-paths ["env/test/resources"] 
                   
                   
                   }
-   :profiles/dev {}
+   :profiles/dev  {}
    :profiles/test {}})
