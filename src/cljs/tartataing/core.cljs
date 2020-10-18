@@ -1,14 +1,16 @@
 (ns tartataing.core
   (:require
-    [reagent.core :as r]
-    [reagent.dom :as rdom]
-    [goog.events :as events]
-    [goog.history.EventType :as HistoryEventType]
-    [markdown.core :refer [md->html]]
-    [tartataing.ajax :as ajax]
-    [ajax.core :refer [GET POST]]
-    [reitit.core :as reitit]
-    [clojure.string :as string])
+   [reagent.core :as r]
+   [reagent.dom :as rdom]
+   [goog.events :as events]
+   [goog.history.EventType :as HistoryEventType]
+   [markdown.core :refer [md->html]]
+   [cljss.reagent :refer-macros [defstyled]]
+   [tartataing.ajax :as ajax]
+   [ajax.core :refer [GET POST]]
+   [reitit.core :as reitit]
+   [clojure.string :as string])
+  (:require-macros [cljss.core])
   (:import goog.History))
 
 (defonce session (r/atom {:page :home}))
@@ -18,11 +20,16 @@
    {:href  uri
     :class (when (= page (:page @session)) "is-active")}
    title])
-(+ 1 1)
+
+(defstyled Kikoo :h1  {
+                       :color "red"
+                       })
 (defn navbar [] 
   (r/with-let [expanded? (r/atom false)]
     [:nav.navbar.is-info>div.container
      [:div.navbar-brand
+      [Kikoo "yao"]
+      [:h2 "ca v"]
       [:img {:src "/img/logo.svg"}]
       [:a.navbar-item {:href "/" :style {:font-weight :bold}} "tartataing"]
       [:span.navbar-burger.burger
@@ -43,6 +50,8 @@
 
 (defn home-page []
   [:div
+   [:div
+    [:img {:src "/img/tatin.jpg"}]]
    [:h1 "yo im here x"] "hey"])
 
 (def pages
