@@ -15,19 +15,20 @@
 
 (defn nav-link [uri title page]
   [:a.navbar-item
-   {:href   uri
+   {:href  uri
     :class (when (= page (:page @session)) "is-active")}
    title])
-
+(+ 1 1)
 (defn navbar [] 
   (r/with-let [expanded? (r/atom false)]
     [:nav.navbar.is-info>div.container
      [:div.navbar-brand
+      [:img {:src "/img/logo.svg"}]
       [:a.navbar-item {:href "/" :style {:font-weight :bold}} "tartataing"]
       [:span.navbar-burger.burger
        {:data-target :nav-menu
-        :on-click #(swap! expanded? not)
-        :class (when @expanded? :is-active)}
+        :on-click    #(swap! expanded? not)
+        :class       (when @expanded? :is-active)}
        [:span][:span][:span]]]
      [:div#nav-menu.navbar-menu
       {:class (when @expanded? :is-active)}
@@ -41,9 +42,8 @@
 
 
 (defn home-page []
-  [:section.section>div.container>div.content
-   (when-let [docs (:docs @session)]
-     [:div {:dangerouslySetInnerHTML {:__html (md->html docs)}}])])
+  [:div
+   [:h1 "yo im here x"] "hey"])
 
 (def pages
   {:home #'home-page
@@ -62,19 +62,19 @@
 
 (defn match-route [uri]
   (->> (or (not-empty (string/replace uri #"^.*#" "")) "/")
-       (reitit/match-by-path router)
-       :data
-       :name))
+    (reitit/match-by-path router)
+    :data
+    :name))
 ;; -------------------------
 ;; History
 ;; must be called after routes have been defined
-(defn hook-browser-navigation! []
-  (doto (History.)
-    (events/listen
-      HistoryEventType/NAVIGATE
-      (fn [event]
-        (swap! session assoc :page (match-route (.-token event)))))
-    (.setEnabled true)))
+;; (defn hook-browser-navigation! []
+;;   (doto (History.)
+;;     (events/listen
+;;       HistoryEventType/NAVIGATE
+;;       (fn [event]
+;;         (swap! session assoc :page (match-route (.-token event)))))
+;;     (.setEnabled true)))
 
 ;; -------------------------
 ;; Initialize app
@@ -88,5 +88,5 @@
 (defn init! []
   (ajax/load-interceptors!)
   (fetch-docs!)
-  (hook-browser-navigation!)
+  ;; (hook-browser-navigation!)
   (mount-components))
