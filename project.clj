@@ -8,6 +8,7 @@
                  [cljs-ajax "0.8.0"]
                  [clojure.java-time "0.3.2"]
                  [com.cognitect/transit-clj "1.0.324"]
+                 [clj-commons/cljss "1.6.4"]
                  [com.fasterxml.jackson.core/jackson-core "2.11.2"]
                  [com.fasterxml.jackson.core/jackson-databind "2.11.2"]
                  [com.google.javascript/closure-compiler-unshaded "v20200504" :scope "provided"]
