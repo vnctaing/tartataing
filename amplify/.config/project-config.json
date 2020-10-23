@@ -1,0 +1,17 @@
+{
+  "projectName": "tartataing",
+  "version": "3.0",
+  "frontend": "javascript",
+  "javascript": {
+    "framework": "react",
+    "config": {
+      "SourceDir": "src/cljs",
+      "DistributionDir": "target/cljsbuild/public/js",
+      "BuildCommand": "lein uberjar",
+      "StartCommand": "lein run"
+    }
+  },
+  "providers": [
+    "awscloudformation"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-tartataing-dev-220411-authRole",
+      "UnauthRoleArn": "arn:aws:iam::600608053296:role/amplify-tartataing-dev-220411-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::600608053296:role/amplify-tartataing-dev-220411-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-tartataing-dev-220411-deployment",
+      "UnauthRoleName": "amplify-tartataing-dev-220411-unauthRole",
+      "StackName": "amplify-tartataing-dev-220411",
+      "StackId": "arn:aws:cloudformation:us-east-1:600608053296:stack/amplify-tartataing-dev-220411/33cf4b40-14ed-11eb-83ad-0acf59e535ed",
+      "AmplifyAppId": "d33bdj7f65ybj3"
+    }
+  }
+}
