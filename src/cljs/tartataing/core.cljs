@@ -5,12 +5,10 @@
    [goog.events :as events]
    [goog.history.EventType :as HistoryEventType]
    [markdown.core :refer [md->html]]
-   [cljss.reagent :refer-macros [defstyled]]
    [tartataing.ajax :as ajax]
    [ajax.core :refer [GET POST]]
    [reitit.core :as reitit]
    [clojure.string :as string])
-  (:require-macros [cljss.core])
   (:import goog.History))
 
 (defonce session (r/atom {:page :home}))
@@ -21,41 +19,59 @@
     :class (when (= page (:page @session)) "is-active")}
    title])
 
-(defstyled Kikoo :h1  {
-                       :color "red"
-                       })
-(defn navbar [] 
+(defn navbar []
   (r/with-let [expanded? (r/atom false)]
-    [:nav.navbar.is-info>div.container
+    [:nav.navbar>div.container
      [:div.navbar-brand
-      [Kikoo "yao"]
-      [:h2 "ca v"]
-      [:img {:src "/img/logo.svg"}]
-      [:a.navbar-item {:href "/" :style {:font-weight :bold}} "tartataing"]
+      [:a.navbar-item {:href "/" :style {:font-weight :bold}}
+       [:img {:src "https://amplify-tartataing-dev-220411-deployment.s3.amazonaws.com/www/public/img/logo.svg"}]]
       [:span.navbar-burger.burger
        {:data-target :nav-menu
         :on-click    #(swap! expanded? not)
         :class       (when @expanded? :is-active)}
-       [:span][:span][:span]]]
-     [:div#nav-menu.navbar-menu
-      {:class (when @expanded? :is-active)}
-      [:div.navbar-start
-       [nav-link "#/" "Home" :home]
-       [nav-link "#/about" "About" :about]]]]))
+       [:span] [:span] [:span]]]]))
 
 (defn about-page []
   [:section.section>div.container>div.content
    [:img {:src "/img/warning_clojure.png"}]])
 
+(defn star-reviews [{:keys [rating reviews-count]}]
+  [:p.star-reviews-container (for [i (range rating)] [:i.fa.fa-star.rating-star {:key i}])
+   [:span.star-reviews-count (str " (" reviews-count " reviews)")]])
+
+(defn add-button []
+  [:div.add-button-box [:i.fa.fa-plus]])
+
+(defn product-label [{:keys [product]}]
+  (let [rating        (:rating product)
+        name          (:name product)
+        reviews       (:reviews product)
+        reviews-count (count (:reviews product))]
+    [:div.product-label
+     [:div
+      [:p.product-name name]]
+     [star-reviews {:rating rating :reviews-count reviews-count}]]))
+
+(defn price-tag []
+  [:div.price-tag
+   [:p.price-tag-price "$45.99"
+    [:span.price-tag-dimension "(12'/32 cm)"]]])
+
+(def product-example {:rating  5
+                      :name    "Signature Tartataing"
+                      :reviews ["youpi" "super"]})
 
 (defn home-page []
   [:div
-   [:div
-    [:img {:src "/img/tatin.jpg"}]]
-   [:h1 "yo im here x"] "hey"])
+   [:div.img_container
+    [:img.img_home {:src "https://amplify-tartataing-dev-220411-deployment.s3.amazonaws.com/www/public/img/tatin.jpg"}]]
+   [:div.label-container
+    [price-tag]
+    [product-label {:product product-example}]
+    [:div.home-add-button [add-button] ]]])
 
 (def pages
-  {:home #'home-page
+  {:home  #'home-page
    :about #'about-page})
 
 (defn page []

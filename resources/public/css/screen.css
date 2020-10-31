@@ -1,6 +1,6 @@
 html,
 body {
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-family: 'Roboto', Helvetica, Arial, sans-serif;
 }
 @font-face {
   font-family: 'Material Icons';
@@ -33,3 +33,81 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.price-tag{
+    margin-right: 20px;
+}
+
+.price-tag-price {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.price-tag-dimension {
+    font-size: 0.6em;
+    margin-left: 5px;
+    font-weight: 200;
+}
+
+
+.product-label {
+    margin: 0;
+}
+.label-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.img_home {
+  position: absolute;
+  margin: 0px 0px 20px;
+  margin-left: 40%;
+  border-radius: 20px 0px 0px 20px;
+  max-width: 50%;
+  max-height: 200px;
+  right: 0;
+  box-shadow: 1px 12px 12px ##bdbdbd;
+}
+
+.img_container {
+    height: 200px;
+    overflow: hidden;
+    border-color: 5px solid white;
+}
+
+.product-name {
+    font-size: 1.2em;
+    font-weight: 800;
+    margin-bottom: 0px;
+}
+
+.rating-star {
+    color: #FFDA57;
+}
+
+.star-reviews-count {
+    font-family: "Rokkitt";
+    font-size: 0.8em;
+    font-weight: 300;
+}
+
+.star-reviews-container {
+    margin: 10px;
+}
+
+.add-button-box {
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: #FFCE85;
+}
+
+.home-add-button {
+    margin-left: 20px;
+}

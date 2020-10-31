@@ -29,13 +29,15 @@
     </div>
 
     <!-- scripts and styles -->
-    {% style "/assets/bulma/css/bulma.min.css" %}
     {% style "/assets/material-icons/css/material-icons.min.css" %}
     {% style "/css/screen.css" %}
 
     <script type="text/javascript">
-        var csrfToken = "{{csrf-token}}";
+     var csrfToken = "{{csrf-token}}";
     </script>
     {% script "/js/app.js" %}
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Rokkitt:wght@100;200;300;400;700&display=swap" rel="stylesheet">
   </body>
 </html>
