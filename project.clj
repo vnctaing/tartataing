@@ -31,7 +31,6 @@
                  [org.clojure/google-closure-library "0.0-20191016-6ae1f72f" :scope "provided"]
                  [org.clojure/tools.cli "1.0.194"]
                  [org.clojure/tools.logging "1.1.0"]
-                 [org.webjars.npm/bulma "0.9.0"]
                  [org.webjars.npm/material-icons "0.3.1"]
                  [org.webjars/webjars-locator "0.40"]
                  [reagent "0.10.0"]
@@ -74,7 +73,10 @@
      :output-to "target/test/test.js"
      :autorun   true}}}
   
-  :npm-deps []
+  :npm-deps [
+             ["react" "16.13.0"]
+             ["react-dom" "16.13.0"]
+             ]
   :npm-dev-deps [[xmlhttprequest "1.8.0"]]
 
   :profiles
