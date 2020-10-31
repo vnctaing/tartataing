@@ -16,6 +16,13 @@ To start a web server for the application, run:
 
     lein run 
 
+
+### REPL
+
+#### Cider
+
+Run cider-jack-in, use `shadow` as command to run
+
 ## License
 
 Copyright © 2020 FIXME
