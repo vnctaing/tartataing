@@ -27,12 +27,16 @@ jobs:
     - name: Create uberjar
       run: lein uberjar
 
-    - name: Build the Docker image
-      run: docker build -t tartataing:latest .
-
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Push to ECR repository
-      run: docker push 600608053296.dkr.ecr.us-east-1.amazonaws.com/tartataing:latest
+
+    - name: Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: tartataing
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
