@@ -28,7 +28,7 @@ jobs:
       run: lein uberjar
 
     - name: Build the Docker image
-      run: docker build -t vnctaing/tartataing:latest .
+      run: docker build -t tartataing:latest .
 
     - name: Push to ECR repository
       run: docker push 600608053296.dkr.ecr.us-east-1.amazonaws.com/tartataing:latest
