@@ -1,0 +1,24 @@
+name: Continuous Delivery
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: lein deps
+    - name: Create uberjar
+      run: lein uberjar
+    - name: Build the Docker image
+      run: docker build -t vnctaing/tartataing:latest .
+    - name: Push to ECR repository
+      run: docker push 600608053296.dkr.ecr.us-east-1.amazonaws.com/tartataing:latest
