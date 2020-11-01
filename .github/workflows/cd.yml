@@ -30,5 +30,9 @@ jobs:
     - name: Build the Docker image
       run: docker build -t tartataing:latest .
 
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
     - name: Push to ECR repository
       run: docker push 600608053296.dkr.ecr.us-east-1.amazonaws.com/tartataing:latest
