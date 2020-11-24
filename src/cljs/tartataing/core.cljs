@@ -12,7 +12,7 @@
   (:import goog.History))
 
 (defonce session (r/atom {:page :home}))
-
+(defonce cart (r/atom []))
 (defn nav-link [uri title page]
   [:a.navbar-item
    {:href  uri
@@ -20,11 +20,15 @@
    title])
 
 (defn navbar []
-  (r/with-let [expanded? (r/atom false)]
+  (r/with-let [expanded? (r/atom false)
+               ]
     [:nav.navbar>div.container
      [:div.navbar-brand
       [:a.navbar-item {:href "/" :style {:font-weight :bold}}
        [:img {:src "https://amplify-tartataing-dev-220411-deployment.s3.amazonaws.com/www/public/img/logo.svg"}]]
+      [:span.cart-container
+       [:i.fa.fa-shopping-cart.cart-icon]
+       [:span.badge [:span (count @cart)] ]]
       [:span.navbar-burger.burger
        {:data-target :nav-menu
         :on-click    #(swap! expanded? not)
@@ -40,7 +44,7 @@
    [:span.star-reviews-count (str " (" reviews-count " reviews)")]])
 
 (defn add-button []
-  [:div.add-button-box [:i.fa.fa-plus]])
+  [:div.add-button-box {:on-click #(swap! cart conj "oui")} [:i.fa.fa-plus]])
 
 (defn product-label [{:keys [product]}]
   (let [rating        (:rating product)
@@ -68,7 +72,7 @@
    [:div.label-container
     [price-tag]
     [product-label {:product product-example}]
-    [:div.home-add-button [add-button] ]]])
+    [:div.home-add-button [add-button]]]])
 
 (def pages
   {:home  #'home-page
@@ -82,14 +86,14 @@
 
 (def router
   (reitit/router
-    [["/" :home]
-     ["/about" :about]]))
+   [["/" :home]
+    ["/about" :about]]))
 
 (defn match-route [uri]
   (->> (or (not-empty (string/replace uri #"^.*#" "")) "/")
-    (reitit/match-by-path router)
-    :data
-    :name))
+       (reitit/match-by-path router)
+       :data
+       :name))
 ;; -------------------------
 ;; History
 ;; must be called after routes have been defined
