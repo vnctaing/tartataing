@@ -2,11 +2,12 @@
   "EBDockerrunVersion": "1",
   "Image": {
     "Name": "600608053296.dkr.ecr.us-east-1.amazonaws.com/tartataing:latest",
+    "Update": true
   },
   "Ports": [
     {
       "ContainerPort": 3000,
       "HostPort": 3000
     }
-  ],
+  ]
 }
