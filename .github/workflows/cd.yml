@@ -40,3 +40,27 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t latest .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+    - name: Get timestamp
+      uses: gerred/actions/current-time@master
+      id: current-time
+
+    - name: Run string replace
+      uses: frabert/replace-string-action@master
+      id: format-time
+      with:
+        pattern: '[:\.]+'
+        string: "${{ steps.current-time.outputs.time }}"
+        replace-with: '-'
+        flags: 'g'
+
+    - name: Beanstalk Deploy for app
+      uses: einaregilsson/beanstalk-deploy@v3
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+        application_name: ${{ secrets.AWS_EB_APP_NAME }}
+        environment_name: ${{ secrets.AWS_EB_ENV_NAME }}
+        region: ${{ secrets.AWS_REGION }}
+        version_label: "my-app-${{ steps.format-time.outputs.replaced }}"
+        deployment_package: deploy.zip
