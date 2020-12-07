@@ -1,5 +1,5 @@
 {
-  "EBDockerrunVersion": "1",
+  "AWSEBDockerrunVersion": "3",
   "Image": {
     "Name": "600608053296.dkr.ecr.us-east-1.amazonaws.com/tartataing:latest",
     "Update": true
