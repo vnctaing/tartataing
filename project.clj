@@ -42,7 +42,7 @@
                  [thheller/shadow-cljs "2.10.17" :scope "provided"]]
 
   :min-lein-version "2.0.0"
-  
+
   :source-paths ["src/clj" "src/cljs" "src/cljc"]
   :test-paths ["test/clj"]
   :resource-paths ["resources" "target/cljsbuild"]
@@ -50,13 +50,20 @@
   :main ^:skip-aot tartataing.core
 
   :plugins [[lein-shadow "0.2.0"]
-            [lein-uberwar "0.2.1"]] 
-  :uberwar
-  {:handler tartataing.handler/app
+            [lein-uberwar "0.2.1"]]
+  :sassc    [{:src          "src/scss/main.scss"
+              :output-to    "dist/main.css"
+              :style        "compressed"}]
+  :tailwind {:tailwind-dir "src/scss/tailwind"
+             :output-dir   "src/scss"
+             :tailwind-config  "tailwind.config.js" ;; tailwind.config.js is the default value 
+             :styles [{:src "main.scss"
+                       :dst "main.scss"}]}
+  :uberwar {:handler tartataing.handler/app
    :init    tartataing.handler/init
    :destroy tartataing.handler/destroy
    :name    "tartataing.war"}
-  
+
   :clean-targets ^{:protect false}
   [:target-path "target/cljsbuild"]
   :shadow-cljs
@@ -72,24 +79,23 @@
     {:target    :node-test
      :output-to "target/test/test.js"
      :autorun   true}}}
-  
-  :npm-deps [
-             ]
+
+  :npm-deps []
   :npm-dev-deps [[xmlhttprequest "1.8.0"]]
 
   :profiles
   {:uberjar {:omit-source true
              :prep-tasks  ["compile" ["shadow" "release" "app"]]
-             
+
              :aot            :all
              :uberjar-name   "tartataing.jar"
-             :source-paths   ["env/prod/clj"  "env/prod/cljs" ]
+             :source-paths   ["env/prod/clj"  "env/prod/cljs"]
              :resource-paths ["env/prod/resources"]}
 
    :dev  [:project/dev :profiles/dev]
    :test [:project/dev :project/test :profiles/test]
 
-   :project/dev {:jvm-opts     ["-Dconf=dev-config.edn" ]
+   :project/dev {:jvm-opts     ["-Dconf=dev-config.edn"]
                  :dependencies [[binaryage/devtools "1.0.2"]
                                 [cider/piggieback "0.5.0"]
                                 [directory-naming/naming-java "0.8"]
@@ -98,19 +104,16 @@
                                 [ring/ring-devel "1.8.1"]
                                 [ring/ring-mock "0.4.0"]]
                  :plugins      [[com.jakemccrary/lein-test-refresh "0.24.1"]
-                                [jonase/eastwood "0.3.5"]] 
-                 
-                 
-                 :source-paths   ["env/dev/clj"  "env/dev/cljs" "test/cljs" ]
+                                [jonase/eastwood "0.3.5"]]
+
+                 :source-paths   ["env/dev/clj"  "env/dev/cljs" "test/cljs"]
                  :resource-paths ["env/dev/resources"]
                  :repl-options   {:init-ns user
                                   :timeout 120000}
                  :injections     [(require 'pjstadig.humane-test-output)
                                   (pjstadig.humane-test-output/activate!)]}
-   :project/test {:jvm-opts       ["-Dconf=test-config.edn" ]
-                  :resource-paths ["env/test/resources"] 
-                  
-                  
-                  }
+   :project/test {:jvm-opts       ["-Dconf=test-config.edn"]
+                  :resource-paths ["env/test/resources"]}
+
    :profiles/dev  {}
    :profiles/test {}})
