@@ -57,9 +57,12 @@
      [star-reviews {:rating rating :reviews-count reviews-count}]]))
 
 (defn price-tag []
-  [:div.price-tag
-   [:p.price-tag-price "$45.99"
-    [:span.price-tag-dimension "(12'/32 cm)"]]])
+  [:div
+   [:div.price-tag
+   [:p.price-tag-price "Currend bid: $45.99"
+    [:span.price-tag-dimension "(12'/32 cm)"]]]
+   [:div
+    [:span "12 bids"]]])
 
 (def product-example {:rating  5
                       :name    "Signature Tartataing"
