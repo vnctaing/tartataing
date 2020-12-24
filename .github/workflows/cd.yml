@@ -9,11 +9,12 @@ on:
 jobs:
 
   build:
-
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: lein deps
-
-    - name: Create uberjar
-      run: lein uberjar
-
+      - uses: actions/checkout@v2
+      - uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: tw
+      - uses: akhileshns/heroku-deploy@v3.7.8
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "tartataing" 
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
