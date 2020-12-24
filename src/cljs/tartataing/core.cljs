@@ -23,8 +23,7 @@
   (r/with-let [expanded? (r/atom false)]
     [:nav>div.grid.gap-2.md:grid-cols-6.md:grid-rows:1
      [:a.font-bold.p-6.px-6 {:href "/"}
-      [:img {:src "https://amplify-tartataing-dev-220411-deployment.s3.amazonaws.com/www/public/img/logo.svg"}]]
-     ]))
+      [:img {:src "https://amplify-tartataing-dev-220411-deployment.s3.amazonaws.com/www/public/img/logo.svg"}]]]))
 
 (defn about-page []
   [:section.section>div.container>div.content
@@ -40,7 +39,6 @@
 (defn bids-actions []
   [:div.justify-self-start.bg-blue-400.hover:bg-blue-500.cursor-pointer.h-10.w-32.place-content-stretch.text-white.rounded-lg.flex.items-center.justify-center
    [place-bid-button]])
-
 
 (defn product-label [{:keys [product]}]
   (let [rating        (:rating product)
@@ -66,17 +64,26 @@
                       :name    "Signature Tartataing"
                       :reviews ["youpi" "super"]})
 
+(defn card []
+  [:div {:class "px-4 py-8"}
+   [:div.bg-white.shadow-2xl.rounded-lg
+    [:div
+     [:img.rounded-t-lg {:src "https://amplify-tartataing-dev-220411-deployment.s3.amazonaws.com/www/public/img/tatin.jpg"}]]
+    [:div.p-6.py-8.bg-white.rounded-b-lg
+     [:div.row-start-2.row-span-2.col-start-4.col-span-3.grid.grid-row-2.grid-cols-3.gap-x-4
+      [product-label {:product product-example}]
+      [price-tag]
+      [bids-actions]]]]])
+
 (defn home-page []
   [:div {:class "md:grid md:grid-rows-3 md:grid-cols-6"}
    [:div.col-start-4.col-span-3.row-start-1
-    [:img {:class "rounded-l-md my-2" :src "https://amplify-tartataing-dev-220411-deployment.s3.amazonaws.com/www/public/img/tatin.jpg"}]]
-   [:div.row-start-2.row-span-2.col-start-4.col-span-3.grid.grid-row-2.grid-cols-3.gap-x-4
-    [product-label {:product product-example}]
-    [price-tag]
-    [bids-actions]]
-   [:div.col-start-1.col-span-3.row-start-1
+    [card]]
+   ;; [:img {:class "rounded-l-md my-2" :src ""}]
+
+   [:div.col-start-1.col-span-3.row-start-1.place-self-center
     [:h2.text-6xl.font-bold.p-8.text-gray-800 "Traditional french pastries delivery."]
-    [:h2.text-2xl.px-8.py-1.text-gray-600 "Win the auction. Get a tartataing delivered to your door." ]
+    [:h2.text-2xl.px-8.py-1.text-gray-600 "Win the auction. Get a tartataing delivered to your door."]
     [:h3.text-l.p-8.italic.text-gray-600 "Same-day delivery only in San Francisco (SoMa, Mission, Downtown, Castro)"]]])
 
 (def pages
