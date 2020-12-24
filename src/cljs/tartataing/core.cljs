@@ -12,6 +12,7 @@
   (:import goog.History))
 
 (defonce session (r/atom {:page :home}))
+(defonce bid-input (r/atom nil))
 
 (defn nav-link [uri title page]
   [:a.navbar-item
@@ -34,10 +35,11 @@
    [:span.text-xs (str " (" reviews-count " reviews)")]])
 
 (defn place-bid-button []
-  [:div {:on-click #()}] [:span "Place bid"])
+  [:div
+   [:span "Place bid"]])
 
 (defn bids-actions []
-  [:div.justify-self-start.bg-blue-400.hover:bg-blue-500.cursor-pointer.h-10.w-32.place-content-stretch.text-white.rounded-lg.flex.items-center.justify-center
+  [:div.bg-blue-400.hover:bg-blue-500.cursor-pointer.h-10.w-32.place-content-stretch.text-white.rounded-lg.flex.items-center.justify-center {:on-click #(reset! bid-input nil)}
    [place-bid-button]])
 
 (defn product-label [{:keys [product]}]
@@ -47,18 +49,24 @@
         reviews-count (count (:reviews product))]
     [:div.justify-self-start
      [:div
-      [:p.font-bold.text-lg name]]
+      [:p.font-bold.text-l name
+       [:span.text-xs.px-2 "(12'/32 cm)"]]]
      [star-reviews {:rating rating :reviews-count reviews-count}]]))
-
 (defn price-tag []
   [:div.justify-self-start
    [:div
     [:p.font-bold "Currend bid: $5"
-     [:span.text-xs.px-2 "(12'/32 cm)"]]]
+     [:span.text-xs.px-2 "[ 72 bids]"]]]
    [:div
     [:div {:class "mt-1 relative rounded-md shadow-sm"}
      [:div {:class "absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"}]
-     [:input {:type "text", :name "price", :id "price", :class "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", :placeholder "0.00"}]]]])
+     [:input {:type "text"
+              :name "price"
+              :id "price"
+              :value @bid-input
+              :on-change #(reset! bid-input (-> % .-target .-value))
+              :class "border block focus:ring-indigo-500 focus:border-indigo-500 block w-full px-4 py-1 pl-7 pr-12 sm:text-sm border-gray-400 rounded-md"
+              :placeholder "0.00"}]]]])
 
 (def product-example {:rating  5
                       :name    "Signature Tartataing"
