@@ -1,15 +1,22 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-tartataing-dev-220411-authRole",
-      "UnauthRoleArn": "arn:aws:iam::600608053296:role/amplify-tartataing-dev-220411-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::600608053296:role/amplify-tartataing-dev-220411-authRole",
+      "AuthRoleName": "amplify-tartataing-dev-231139-authRole",
+      "UnauthRoleArn": "arn:aws:iam::600608053296:role/amplify-tartataing-dev-231139-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::600608053296:role/amplify-tartataing-dev-231139-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-tartataing-dev-220411-deployment",
-      "UnauthRoleName": "amplify-tartataing-dev-220411-unauthRole",
-      "StackName": "amplify-tartataing-dev-220411",
-      "StackId": "arn:aws:cloudformation:us-east-1:600608053296:stack/amplify-tartataing-dev-220411/33cf4b40-14ed-11eb-83ad-0acf59e535ed",
-      "AmplifyAppId": "d33bdj7f65ybj3"
+      "DeploymentBucketName": "amplify-tartataing-dev-231139-deployment",
+      "UnauthRoleName": "amplify-tartataing-dev-231139-unauthRole",
+      "StackName": "amplify-tartataing-dev-231139",
+      "StackId": "arn:aws:cloudformation:us-east-1:600608053296:stack/amplify-tartataing-dev-231139/5f15e030-475a-11eb-bc43-0aa44627df4b",
+      "AmplifyAppId": "d382p3rq8aj8oe"
+    },
+    "categories": {
+      "auth": {
+        "tartataing1bfc0f88": {
+          "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"474797347251684\",\"client_secret\":\"db48c496245749f65cca8e5f2fbd02fb\"}]"
+        }
+      }
     }
   }
 }

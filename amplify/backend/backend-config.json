@@ -1,1 +1,10 @@
-{}
+{
+  "auth": {
+    "tartataing1bfc0f88": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}

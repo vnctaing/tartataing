@@ -6,7 +6,7 @@
     "framework": "react",
     "config": {
       "SourceDir": "src/cljs",
-      "DistributionDir": "target/cljsbuild/public/js",
+      "DistributionDir": "target/",
       "BuildCommand": "lein uberjar",
       "StartCommand": "lein run"
     }
