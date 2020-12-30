@@ -23,6 +23,9 @@ shadow-cljs.edn
 
 **/.DS_Store
 
+
+resources/public/css/main.css
+
 #amplify
 amplify/\#current-cloud-backend
 amplify/.config/local-*
@@ -38,6 +41,3 @@ amplifyconfiguration.json
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
-
-
-resources/public/css/main.css

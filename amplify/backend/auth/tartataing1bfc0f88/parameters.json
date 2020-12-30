@@ -1,6 +1,6 @@
 {
     "identityPoolName": "tartataing1bfc0f88_identitypool_1bfc0f88",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "tartat1bfc0f88",
     "userPoolName": "tartataing1bfc0f88_userpool_1bfc0f88",
     "autoVerifiedAttributes": [

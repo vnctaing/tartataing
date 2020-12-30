@@ -33,7 +33,7 @@
                  [org.clojure/tools.logging "1.1.0"]
                  [org.webjars.npm/material-icons "0.3.1"]
                  [org.webjars/webjars-locator "0.40"]
-                 [reagent "0.10.0"]
+                 [reagent "1.0.0"]
                  [ring-webjars "0.2.0"]
                  [ring/ring-core "1.8.1"]
                  [ring/ring-defaults "0.3.2"]
@@ -70,6 +70,10 @@
   {:nrepl {:port 7002}
    :builds
    {:app
+    :js-options       {:babel-preset-config {:targets {:ie 11}}}
+    :compiler-options {:rewrite-polyfills true
+                       :output-feature-set :es8}
+
     {:target     :browser
      :output-dir "target/cljsbuild/public/js"
      :asset-path "/js"
