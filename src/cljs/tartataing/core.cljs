@@ -4,8 +4,12 @@
    [reagent.dom :as rdom]
    [goog.events :as events]
    [goog.history.EventType :as HistoryEventType]
+   ["@aws-amplify/ui-react" :refer (AmplifyAuthenticator, AmplifySignUp, AmplifySignOut)]
+   ["aws-amplify" :default Amplify :as amp]
+   ["/aws-exports.js" :default aws-exports]
    [markdown.core :refer [md->html]]
    [tartataing.ajax :as ajax]
+   ;; [tartataing.home.authenticator :as auth]
    [ajax.core :refer [GET POST]]
    [reitit.core :as reitit]
    [clojure.string :as string])
@@ -24,7 +28,7 @@
   (r/with-let [expanded? (r/atom false)]
     [:nav>div.grid.gap-2.md:grid-cols-6.md:grid-rows:1
      [:a.font-bold.p-6.px-6 {:href "/"}
-      [:img {:src "https://amplify-tartataing-dev-220411-deployment.s3.amazonaws.com/www/public/img/logo.svg"}]]]))
+      [:img {:src "https://amplify-tartataing-dev-231139-deployment.s3.amazonaws.com/www/public/img/logo.svg"}]]]))
 
 (defn about-page []
   [:section.section>div.container>div.content
@@ -76,26 +80,40 @@
   [:div {:class "px-4 py-8"}
    [:div.bg-white.shadow-2xl.rounded-lg
     [:div
-     [:img.rounded-t-lg {:src "https://amplify-tartataing-dev-220411-deployment.s3.amazonaws.com/www/public/img/tatin.jpg"}]]
+     [:img.rounded-t-lg {:src "https://amplify-tartataing-dev-231139-deployment.s3.amazonaws.com/www/public/img/banner.jpg"}]]
     [:div.p-6.py-8.bg-white.rounded-b-lg
      [:div.row-start-2.row-span-2.col-start-4.col-span-3.grid.grid-row-2.grid-cols-3.gap-x-4
       [product-label {:product product-example}]
       [price-tag]
       [bids-actions]]]]])
 
-(defn home-page []
+(defn login []
+  [:div "hey"])
+
+(def authenticator (r/adapt-react-class AmplifyAuthenticator ))
+
+(def signup (r/adapt-react-class AmplifySignUp ))
+
+(def amplify-signout (r/adapt-react-class AmplifySignOut ))
+
+
+(defn home []
   [:div {:class "md:grid md:grid-rows-3 md:grid-cols-6"}
    [:div.col-start-4.col-span-3.row-start-1
     [card]]
    ;; [:img {:class "rounded-l-md my-2" :src ""}]
 
    [:div.col-start-1.col-span-3.row-start-1.place-self-center
+    [authenticator
+     [:div
+      [amplify-signout]]
+     ]
     [:h2.text-6xl.font-bold.p-8.text-gray-800 "Traditional french pastries delivery."]
     [:h2.text-2xl.px-8.py-1.text-gray-600 "Win the auction. Get a tartataing delivered to your door."]
     [:h3.text-l.p-8.italic.text-gray-600 "Same-day delivery only in San Francisco (SoMa, Mission, Downtown, Castro)"]]])
 
 (def pages
-  {:home  #'home-page
+  {:home  #'home
    :about #'about-page})
 
 (defn page []
@@ -131,6 +149,7 @@
   (GET "/docs" {:handler #(swap! session assoc :docs %)}))
 
 (defn ^:dev/after-load mount-components []
+  (.configure Amplify aws-exports)
   (rdom/render [#'navbar] (.getElementById js/document "navbar"))
   (rdom/render [#'page] (.getElementById js/document "app")))
 

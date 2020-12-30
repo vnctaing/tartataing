@@ -70,11 +70,10 @@
   {:nrepl {:port 7002}
    :builds
    {:app
-    :js-options       {:babel-preset-config {:targets {:ie 11}}}
-    :compiler-options {:rewrite-polyfills true
-                       :output-feature-set :es8}
+
 
     {:target     :browser
+     :compiler-options {:output-feature-set :es8}
      :output-dir "target/cljsbuild/public/js"
      :asset-path "/js"
      :modules    {:app {:entries [tartataing.app]}}
