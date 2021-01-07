@@ -1,16 +1,3 @@
 {
-  "auth": {
-    "tartataing1bfc0f88": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false
-    }
-  },
-  "storage": {
-    "www": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation"
-    }
-  }
+  "auth": {}
 }
