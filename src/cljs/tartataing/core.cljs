@@ -4,7 +4,7 @@
    [reagent.dom :as rdom]
    [goog.events :as events]
    [goog.history.EventType :as HistoryEventType]
-   ["@aws-amplify/ui-react" :refer (AmplifyAuthenticator, AmplifySignUp, AmplifySignOut)]
+   ["aws-amplify-react" :refer (withAuthenticator)]
    ["aws-amplify" :default Amplify :as amp]
    ["/aws-exports.js" :default aws-exports]
    [markdown.core :refer [md->html]]
@@ -90,12 +90,31 @@
 (defn login []
   [:div "hey"])
 
-(def authenticator (r/adapt-react-class AmplifyAuthenticator ))
+(def opts
+  (clj->js {:signUpConfig {:hiddenDefaults ['email' 'username']
+                           :signUpFields [{:label "Email"
+                                           :key "username"
+                                           :required true
+                                           :displayOrder 1
+                                           :type "email"
+                                           :custom false}
+                                          {:label "Password"
+                                           :key "password"
+                                           :required true
+                                           :displayOrder 2
+                                           :type "password"
+                                           :custom false}
+                                          {:label "Phone Number"
+                                           :key "phone_number"
+                                           :required true
+                                           :displayOrder 3
+                                           :type "tel"
+                                           :custom false}]}}))
 
-(def signup (r/adapt-react-class AmplifySignUp ))
-
-(def amplify-signout (r/adapt-react-class AmplifySignOut ))
-
+(defn amplify-authenticator []
+  (r/adapt-react-class
+   (withAuthenticator
+    (r/reactify-component login) opts)))
 
 (defn home []
   [:div {:class "md:grid md:grid-rows-3 md:grid-cols-6"}
@@ -104,10 +123,7 @@
    ;; [:img {:class "rounded-l-md my-2" :src ""}]
 
    [:div.col-start-1.col-span-3.row-start-1.place-self-center
-    [authenticator
-     [:div
-      [amplify-signout]]
-     ]
+    [(amplify-authenticator)]
     [:h2.text-6xl.font-bold.p-8.text-gray-800 "Traditional french pastries delivery."]
     [:h2.text-2xl.px-8.py-1.text-gray-600 "Win the auction. Get a tartataing delivered to your door."]
     [:h3.text-l.p-8.italic.text-gray-600 "Same-day delivery only in San Francisco (SoMa, Mission, Downtown, Castro)"]]])

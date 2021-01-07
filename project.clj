@@ -70,11 +70,9 @@
   {:nrepl {:port 7002}
    :builds
    {:app
-
-
     {:target     :browser
-     :compiler-options {:output-feature-set :es8}
      :output-dir "target/cljsbuild/public/js"
+     :compiler-options {:output-feature-set :es8}
      :asset-path "/js"
      :modules    {:app {:entries [tartataing.app]}}
      :devtools   {:watch-dir "resources/public"}}
